@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/albumArtworkImage"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Song title" />
+        tools:text="Track title" />
 
     <TextView
         android:id="@+id/trackSubtitleText"
@@ -45,7 +45,7 @@
         app:layout_constraintStart_toEndOf="@id/albumArtworkImage"
         app:layout_constraintTop_toBottomOf="@id/trackTitleText"
         tools:layout_editor_absoluteY="4dp"
-        tools:text="Track subtitle" />
+        tools:text="Artist name" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
