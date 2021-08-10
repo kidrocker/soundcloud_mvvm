@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.calculateDiff
 import androidx.recyclerview.widget.RecyclerView
 import co.ke.soundcloud.R
-import co.ke.soundcloud.ui.playlist.data.remote.Playlist
 import co.ke.soundcloud.ui.playlist.data.remote.Track
-import co.ke.soundcloud.util.DiffUtilCallback
+import co.ke.soundcloud.util.TrackDiffCallback
 import com.bumptech.glide.Glide
 
 
@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
  */
 class TrackListAdapter : RecyclerView.Adapter<TrackListAdapter.ItemViewHolder>() {
 
-    private val tracks = mutableListOf<Track>()
+    private var tracks:List<Track> =ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
@@ -30,13 +30,12 @@ class TrackListAdapter : RecyclerView.Adapter<TrackListAdapter.ItemViewHolder>()
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val track = tracks[position]
         holder.title.text = track.title
-        holder.artist.text = track.artist.name
+        holder.artist.text =  track.user.userName
 
         Glide.with(holder.itemView)
             .load(track.artwork)
-            .placeholder(R.drawable.ic_outline_image_24)
+            .placeholder(R.drawable.ic_outline_image_24) // default image before artwork loads
             .into(holder.albumArt)
-
     }
 
     override fun getItemCount() = tracks.size
@@ -48,8 +47,10 @@ class TrackListAdapter : RecyclerView.Adapter<TrackListAdapter.ItemViewHolder>()
         val albumArt: ImageView = view.findViewById(R.id.albumArtworkImage)
     }
 
-    fun updateList(newList: List<Track>) {
-        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(this.tracks, newList))
+    fun updateTrackList(newList: List<Track>) {
+        val oldList = tracks
+        val diffResult: DiffUtil.DiffResult = calculateDiff(TrackDiffCallback(oldList, newList))
+        tracks = newList
         diffResult.dispatchUpdatesTo(this)
     }
 }

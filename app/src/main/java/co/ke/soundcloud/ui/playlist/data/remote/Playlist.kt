@@ -1,7 +1,7 @@
 package co.ke.soundcloud.ui.playlist.data.remote
 
 import com.google.gson.annotations.SerializedName
-
+import java.util.*
 
 // use gson serialization to serialize data to objects
 data class Playlist(
@@ -9,7 +9,7 @@ data class Playlist(
     val title: String,
 
     @SerializedName("duration")
-    val duration: Long,
+    val duration: Date,
 
     @SerializedName("description")
     val description: String?,

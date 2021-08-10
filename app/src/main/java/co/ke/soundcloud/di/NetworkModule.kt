@@ -8,24 +8,23 @@ import co.ke.soundcloud.util.Constants.CACHE_SIZE_BYTES
 import co.ke.soundcloud.util.Constants.CONNECTION_TIMEOUT
 import co.ke.soundcloud.util.Constants.READ_TIMEOUT
 import co.ke.soundcloud.util.Constants.WRITE_TIMEOUT
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.google.gson.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Cache
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 @Module
-@Suppress("unused")
+
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
@@ -40,7 +39,8 @@ object NetworkModule {
     @Provides
     fun provideGsonBuilder(): Gson {
         return GsonBuilder()
-            .setDateFormat("HH:mm:ss")
+            .registerTypeAdapter(Date::class.java,
+                JsonDeserializer { json, _, _ -> Date(json.asJsonPrimitive.asLong) })
             .create()
     }
 
@@ -56,8 +56,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-            headerInterceptor: Interceptor,
-            cache: Cache
+        headerInterceptor: Interceptor,
+        cache: Cache
     ): OkHttpClient {
 
         val okHttpClientBuilder = OkHttpClient().newBuilder()
@@ -70,14 +70,22 @@ object NetworkModule {
         return okHttpClientBuilder.build()
     }
 
+    /**
+     * Allow us to add api auth key on every call automatically
+     */
     @Provides
     @Singleton
     fun provideHeaderInterceptor(): Interceptor {
         return Interceptor {
-            val requestBuilder = it.request().newBuilder()
-            requestBuilder.addHeader("client_id" ,  "value")
-            requestBuilder.addHeader("client_secret" ,  "value")
-            it.proceed(requestBuilder.build())
+            val url = it
+                .request()
+                .url
+                .newBuilder()
+                .addQueryParameter("client_id", "i71BoBoxTxlbVYvnt7O2reL86DynpqT3")
+                .addQueryParameter("client_secret", "Mh6G90LOOuz1Vd04gBsNQMmHFwocWUzk")
+                .build()
+
+            return@Interceptor it.proceed(it.request().newBuilder().url(url).build())
         }
     }
 

@@ -3,17 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/mainView"
     android:layout_height="match_parent"
     tools:context=".ui.playlist.MainActivity">
 
     <TextView
         android:id="@+id/titleText"
         android:layout_width="0dp"
-        android:maxLines="2"
-        android:ellipsize="end"
+        android:ellipsize="marquee"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textSize="30sp"
+        android:maxLines="4"
+        style="@style/titleText"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +29,7 @@
         android:layout_marginTop="4dp"
         android:textSize="24sp"
         tools:text="2:20:12"
-        android:id="@+id/durationText"/>
+        android:id="@+id/trackCountText"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_left"
@@ -48,16 +50,19 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/durationText"
+        app:layout_constraintTop_toBottomOf="@+id/trackCountText"
         tools:listitem="@layout/track_list_item" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"

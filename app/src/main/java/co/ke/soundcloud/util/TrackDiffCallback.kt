@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import co.ke.soundcloud.ui.playlist.data.remote.Track
 
 
-class DiffUtilCallback(private val newTracks: List<Track>, private val oldTracks: List<Track>) :
+class TrackDiffCallback(private val newTracks: List<Track>, private val oldTracks: List<Track>) :
     DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
@@ -22,12 +22,5 @@ class DiffUtilCallback(private val newTracks: List<Track>, private val oldTracks
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldTracks[oldItemPosition] == newTracks[newItemPosition]
-    }
-
-    @Nullable
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-
-        //you can return particular field for changed item.
-        return super.getChangePayload(oldItemPosition, newItemPosition)
     }
 }

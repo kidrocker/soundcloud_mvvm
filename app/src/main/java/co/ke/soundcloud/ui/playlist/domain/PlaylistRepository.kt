@@ -19,9 +19,15 @@ class PlaylistRepository @Inject constructor(
     /**
      * work
      */
-    suspend fun getPlaylist(id:Long): Flow<Resource<Playlist>>{
-        return flow{
+    suspend fun getPlaylist(id: Long): Flow<Resource<Playlist>> {
+        return flow {
+
+            // show loading bar to notify the ui of we are loading data
+            emit(Resource.Loading)
+
+            // fetch data from the backend  and emit
             emit(handleApiCall { dataSource.getPlaylist(id) })
+
         }.flowOn(Dispatchers.IO)
     }
 }

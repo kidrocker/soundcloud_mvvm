@@ -20,6 +20,23 @@ data class Track(
     val duration: Date,
 
     @SerializedName("user")
-    val artist: Artist
+    val user: User
 
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (javaClass != other?.javaClass) {
+            return false
+        }
+
+        other as Track
+
+        return when {
+            id == other.id -> true
+            title == other.title -> true
+            uri == other.uri -> true
+            duration == other.duration -> true
+            user == other.user -> true
+            else -> false
+        }
+    }
+}
