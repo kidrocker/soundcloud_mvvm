@@ -1,4 +1,4 @@
-package co.ke.soundcloud.data.network
+package co.ke.soundcloud.ui.playlist.data.network
 
 import co.ke.soundcloud.core.Resource
 import retrofit2.Response

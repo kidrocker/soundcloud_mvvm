@@ -1,8 +1,8 @@
-package co.ke.soundcloud.data.remote
+package co.ke.soundcloud.ui.playlist.data.remote
 
 import com.google.gson.annotations.SerializedName
 
-data class RemoteArtist(
+data class Artist(
     @SerializedName("id")
     val id: Long,
 

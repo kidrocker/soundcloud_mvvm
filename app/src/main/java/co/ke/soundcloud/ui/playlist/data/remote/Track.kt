@@ -1,8 +1,9 @@
-package co.ke.soundcloud.data.remote
+package co.ke.soundcloud.ui.playlist.data.remote
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
-data class RemoteTrack(
+data class Track(
     @SerializedName("id")
     val id: Long,
 
@@ -16,9 +17,9 @@ data class RemoteTrack(
     val artwork: String,
 
     @SerializedName("duration")
-    val duration: Long,
+    val duration: Date,
 
     @SerializedName("user")
-    val artist: RemoteArtist
+    val artist: Artist
 
 )

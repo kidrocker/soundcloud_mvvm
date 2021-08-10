@@ -1,11 +1,10 @@
-package co.ke.soundcloud.data.remote
+package co.ke.soundcloud.ui.playlist.data.remote
 
-import co.ke.soundcloud.data.model.Track
 import com.google.gson.annotations.SerializedName
 
 
 // use gson serialization to serialize data to objects
-data class RemotePlaylist(
+data class Playlist(
     @SerializedName("title")
     val title: String,
 
@@ -28,5 +27,5 @@ data class RemotePlaylist(
     val playlistID: Int,
 
     @SerializedName("tracks")
-    val tracks:List<RemoteTrack>
+    val tracks:List<Track>
 )

@@ -2,7 +2,7 @@ package co.ke.soundcloud.di
 
 import android.content.Context
 import co.ke.soundcloud.SoundCloudApplication
-import co.ke.soundcloud.data.NetworkService
+import co.ke.soundcloud.ui.playlist.data.NetworkService
 import co.ke.soundcloud.util.Constants
 import co.ke.soundcloud.util.Constants.CACHE_SIZE_BYTES
 import co.ke.soundcloud.util.Constants.CONNECTION_TIMEOUT
@@ -27,7 +27,7 @@ import javax.inject.Singleton
 @Module
 @Suppress("unused")
 @InstallIn(SingletonComponent::class)
-class NetworkModule {
+object NetworkModule {
 
     @Singleton
     @Provides
@@ -52,8 +52,6 @@ class NetworkModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
     }
-
-
 
     @Provides
     @Singleton
@@ -90,7 +88,6 @@ class NetworkModule {
         return Cache(httpCacheDirectory, CACHE_SIZE_BYTES)
     }
 
-
     @Provides
     @Singleton
     fun provideContext(application: SoundCloudApplication): Context {
@@ -104,5 +101,4 @@ class NetworkModule {
             .build()
             .create(NetworkService::class.java)
     }
-
 }
