@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp"
-    android:layout_marginVertical="4dp"
-    android:paddingVertical="4dp">
+    android:layout_marginVertical="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,11 +16,11 @@
             android:id="@+id/albumArtworkImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginVertical="4dp"
             android:contentDescription="@string/album_artwork"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteY="4dp"
             tools:srcCompat="@tools:sample/backgrounds/scenic[10]" />
 
         <TextView
@@ -29,6 +28,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/song_title"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="16sp"
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/song_subtitle"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="14sp"

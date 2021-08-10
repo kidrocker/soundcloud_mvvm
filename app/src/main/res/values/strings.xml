@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Soundcloud</string>
     <string name="album_artwork">Album artwork</string>
+    <string name="song_title">Song title</string>
+    <string name="song_subtitle">Song Subtitle</string>
+    <string name="track_count">%d tracks.</string>
 </resources>

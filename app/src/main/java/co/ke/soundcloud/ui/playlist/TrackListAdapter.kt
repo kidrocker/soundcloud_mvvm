@@ -12,6 +12,8 @@ import co.ke.soundcloud.R
 import co.ke.soundcloud.ui.playlist.data.remote.Track
 import co.ke.soundcloud.util.TrackDiffCallback
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 
 
 /**
@@ -34,6 +36,7 @@ class TrackListAdapter : RecyclerView.Adapter<TrackListAdapter.ItemViewHolder>()
 
         Glide.with(holder.itemView)
             .load(track.artwork)
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
             .placeholder(R.drawable.ic_outline_image_24) // default image before artwork loads
             .into(holder.albumArt)
     }

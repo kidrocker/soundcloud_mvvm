@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         progressBar.showProgress(false)
 
         playlistTitle.text = playlist.title
-        playlistSize.text = "${playlist.tracks.size} tracks"
+        playlistSize.text = getString(R.string.track_count, playlist.tracks.size)
         adapter.updateTrackList(playlist.tracks)
     }
 
