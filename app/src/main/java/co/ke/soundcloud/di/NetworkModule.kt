@@ -8,8 +8,7 @@ import co.ke.soundcloud.util.Constants.CACHE_SIZE_BYTES
 import co.ke.soundcloud.util.Constants.CONNECTION_TIMEOUT
 import co.ke.soundcloud.util.Constants.READ_TIMEOUT
 import co.ke.soundcloud.util.Constants.WRITE_TIMEOUT
-import com.cleanarchitectkotlinflowhiltsimplestway.data.APIs
-import com.cleanarchitectkotlinflowhiltsimplestway.presentation.App
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -36,12 +35,22 @@ class NetworkModule {
         return app as SoundCloudApplication
     }
 
+    // provide gson with duration formatting
+    @Singleton
+    @Provides
+    fun provideGsonBuilder(): Gson {
+        return GsonBuilder()
+            .setDateFormat("HH:mm:ss")
+            .create()
+    }
+
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient): Retrofit {
-        return Retrofit.Builder().baseUrl(Constants.BASE_URL).client(client)
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .build()
+    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit.Builder {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
     }
 
 
@@ -90,8 +99,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApi(retrofit: Retrofit): NetworkService {
-        return retrofit.create(NetworkService::class.java)
+    fun provideApi(retrofit: Retrofit.Builder): NetworkService {
+        return retrofit
+            .build()
+            .create(NetworkService::class.java)
     }
 
 }
