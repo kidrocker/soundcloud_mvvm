@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         playlistTitle = findViewById(R.id.titleText)
         playlistDuration = findViewById(R.id.durationText)
         trackList = findViewById(R.id.trackList)
-
+        adapter = TrackListAdapter()
 
         // set up the recyclerview
         trackList.apply {
