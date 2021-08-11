@@ -1,7 +1,6 @@
 package co.ke.soundcloud.ui.playlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.ke.soundcloud.R
 import co.ke.soundcloud.core.Resource
-import co.ke.soundcloud.ui.playlist.data.remote.Playlist
+import co.ke.soundcloud.ui.playlist.model.Playlist
 import co.ke.soundcloud.util.Constants.PLAYLIST_ID
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,20 +34,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize ui
-        playlistTitle = findViewById(R.id.titleText)
-        playlistSize = findViewById(R.id.trackCountText)
-        trackList = findViewById(R.id.trackList)
-        progressBar = findViewById(R.id.progressBar)
-        mainView = findViewById(R.id.mainView)
-        adapter = TrackListAdapter()
+        initializeUIComponents()
 
-        // set up the recyclerview
-        trackList.adapter = adapter
-        trackList.layoutManager = LinearLayoutManager(this@MainActivity)
-
-
-        // subscribe to state change observers
+        // Subscribe to state change observers
         subscribeToObservers()
 
         // Request playlist from the repository
@@ -58,6 +46,26 @@ class MainActivity : AppCompatActivity() {
         playlistViewModel.getPlaylist(PLAYLIST_ID)
     }
 
+    /**
+     * Prepare UI components for use
+     */
+    private fun initializeUIComponents() {
+        playlistTitle = findViewById(R.id.titleText)
+        playlistSize = findViewById(R.id.trackCountText)
+        trackList = findViewById(R.id.trackList)
+        progressBar = findViewById(R.id.progressBar)
+        mainView = findViewById(R.id.mainView)
+        adapter = TrackListAdapter()
+
+        // Set up the recyclerview
+        trackList.adapter = adapter
+        trackList.layoutManager = LinearLayoutManager(this@MainActivity)
+    }
+
+    /**
+     * Method allows the UI to be notified when there are changes in the state
+     * changes can be success, failure or loading
+     */
     private fun subscribeToObservers() {
         playlistViewModel.playlist.observe(this) { playlist ->
             when (playlist) {
@@ -76,14 +84,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Updates UI components when state changes and new data exists
+     */
     private fun updateUI(playlist: Playlist) {
         progressBar.showProgress(false)
 
         playlistTitle.text = playlist.title
         playlistSize.text = getString(R.string.track_count, playlist.tracks.size)
-        adapter.updateTrackList(playlist.tracks)
+        adapter.submitTrackList(playlist.tracks)
     }
 
+    /**
+     * Notifies the user in case an error occurs during data fetch
+     */
     private fun showErrorMessage(message: String) {
         progressBar.showProgress(false)
         Snackbar.make(mainView, message, Snackbar.LENGTH_SHORT).show()
@@ -100,13 +114,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         unSubScribeObservers()
     }
 
     /**
-     * unsubscribe from observers
+     * Unsubscribe from observers
      * We do not need any more updates on the data
      * Though not a must, it is a good practice
      */

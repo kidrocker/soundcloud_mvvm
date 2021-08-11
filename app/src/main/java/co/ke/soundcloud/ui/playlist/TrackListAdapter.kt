@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DiffUtil.calculateDiff
 import androidx.recyclerview.widget.RecyclerView
 import co.ke.soundcloud.R
-import co.ke.soundcloud.ui.playlist.data.remote.Track
+import co.ke.soundcloud.ui.playlist.model.Track
 import co.ke.soundcloud.util.TrackDiffCallback
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -21,19 +21,18 @@ import com.bumptech.glide.request.RequestOptions
  */
 class TrackListAdapter : RecyclerView.Adapter<TrackListAdapter.ItemViewHolder>() {
 
-    private var tracks:List<Track> =ArrayList()
+    private var tracks: List<Track> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.track_list_item, parent, false)
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ItemViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.track_list_item, parent, false)
+    )
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val track = tracks[position]
         holder.title.text = track.title
-        holder.artist.text =  track.user.userName
+        holder.artist.text = track.user.userName
 
+        // using glide for efficient image loading and caching
         Glide.with(holder.itemView)
             .load(track.artwork)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
@@ -50,7 +49,10 @@ class TrackListAdapter : RecyclerView.Adapter<TrackListAdapter.ItemViewHolder>()
         val albumArt: ImageView = view.findViewById(R.id.albumArtworkImage)
     }
 
-    fun updateTrackList(newList: List<Track>) {
+    /**
+     * Submits, compares tracks in an effient manner using Diffutil
+     */
+    fun submitTrackList(newList: List<Track>) {
         val oldList = tracks
         val diffResult: DiffUtil.DiffResult = calculateDiff(TrackDiffCallback(oldList, newList))
         tracks = newList

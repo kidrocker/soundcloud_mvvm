@@ -2,7 +2,7 @@ package co.ke.soundcloud.di
 
 import android.content.Context
 import co.ke.soundcloud.SoundCloudApplication
-import co.ke.soundcloud.ui.playlist.data.NetworkService
+import co.ke.soundcloud.ui.playlist.data.remote.NetworkService
 import co.ke.soundcloud.util.Constants
 import co.ke.soundcloud.util.Constants.CACHE_SIZE_BYTES
 import co.ke.soundcloud.util.Constants.CONNECTION_TIMEOUT

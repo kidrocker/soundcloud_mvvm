@@ -1,4 +1,4 @@
-package co.ke.soundcloud.ui.playlist.data.remote
+package co.ke.soundcloud.ui.playlist.model
 
 import com.google.gson.annotations.SerializedName
 

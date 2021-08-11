@@ -1,10 +1,12 @@
-package co.ke.soundcloud.ui.playlist.data.network
+package co.ke.soundcloud.ui.playlist.model
 
 import co.ke.soundcloud.core.Resource
 import retrofit2.Response
 
 /**
  * Generic class to handle the response and all errors
+ * The class allows for a silent fail by wrapping all call in a try catch block
+ * Finally the class extracts and formats errors from network calls
  */
 abstract class BaseApiResponse {
 
