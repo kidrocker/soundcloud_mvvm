@@ -20,3 +20,5 @@ Below are the design decisions and considerations take on this project:
 * Store the *client_id* and *client_secret* in a more secure manner eg datastore or sharedpreferences.
 
 * Add a local cache which allows the application to work offline.
+
+* Add translation to different languages

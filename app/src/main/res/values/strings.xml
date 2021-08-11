@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Soundcloud</string>
+    <string name="app_name" translatable="false">Soundcloud</string>
     <string name="album_artwork">Album artwork</string>
     <string name="song_title">Song title</string>
     <string name="song_subtitle">Song Subtitle</string>

@@ -13,7 +13,7 @@
         android:ellipsize="marquee"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textSize="30sp"
+        android:textSize="@dimen/list_title"
         android:maxLines="4"
         style="@style/titleText"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@id/titleText"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         android:layout_marginTop="4dp"
-        android:textSize="24sp"
+        android:textSize="@dimen/track_count"
         tools:text="2:20:12"
         android:id="@+id/trackCountText"/>
 
@@ -50,7 +50,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
